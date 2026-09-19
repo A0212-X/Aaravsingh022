@@ -1,0 +1,6 @@
+{
+  "name": "PersonalDoc",
+  "description": "Personal doctor companion for real clinical consultation experience, family health tracking, and doctor visit preparation.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
