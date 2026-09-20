@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PersonalDoc | Hackathon Demo</title>
+  <style>
+    :root { --ink:#15362c; --muted:#6a8175; --green:#176b4d; --mint:#eaf5ed; --line:#cfe0d4; --paper:#fffefa; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:#f4f7f2; color:var(--ink); font-family: Georgia, 'Times New Roman', serif; }
+    .topbar { height:8px; background:linear-gradient(90deg,#176b4d 0 58%,#f2b84b 58% 72%,#e8ece7 72%); }
+    .shell { max-width:1180px; min-height:calc(100vh - 8px); margin:auto; padding:28px 5vw 34px; display:flex; flex-direction:column; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:20px; font-family: ui-sans-serif,system-ui,sans-serif; }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:800; letter-spacing:-.02em; }
+    .mark { width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:var(--green); color:#fff; font-size:22px; }
+    .eyebrow { color:var(--green); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    .counter { color:var(--muted); font-size:12px; }
+    .mode { display:inline-flex; align-items:center; gap:7px; margin-left:10px; color:var(--green); font:800 11px ui-sans-serif,system-ui,sans-serif; }
+    .mode i { width:7px; height:7px; display:inline-block; border-radius:50%; background:#f2b84b; }
+    .mode.live i { background:#2f8f62; box-shadow:0 0 0 4px #d9ecdd; }
+    main { flex:1; display:grid; align-content:center; padding:32px 0; }
+    .slide { display:none; animation:rise .45s ease both; }
+    .slide.active { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:7vw; }
+    @keyframes rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+    h1 { margin:14px 0 18px; max-width:720px; font-size:clamp(42px,6vw,78px); line-height:.98; letter-spacing:-.055em; }
+    h2 { margin:12px 0 14px; font-size:clamp(30px,4vw,54px); line-height:1; letter-spacing:-.045em; }
+    p { max-width:620px; color:var(--muted); font-family:ui-sans-serif,system-ui,sans-serif; font-size:16px; line-height:1.65; }
+    .tag { display:inline-flex; padding:7px 11px; border:1px solid var(--line); border-radius:99px; background:var(--mint); color:var(--green); font:800 11px ui-sans-serif,system-ui,sans-serif; text-transform:uppercase; letter-spacing:.12em; }
+    .panel { background:var(--paper); border:1px solid var(--line); border-radius:24px; padding:24px; box-shadow:0 18px 45px rgba(31,76,54,.09); }
+    .panel h3 { margin:0 0 16px; font:800 14px ui-sans-serif,system-ui,sans-serif; color:var(--green); text-transform:uppercase; letter-spacing:.09em; }
+    .metric { display:flex; justify-content:space-between; gap:18px; padding:13px 0; border-bottom:1px solid #e5eee7; font:600 13px ui-sans-serif,system-ui,sans-serif; }
+    .metric:last-child { border:0; }
+    .metric span:last-child { color:var(--green); text-align:right; }
+    .steps { display:grid; gap:10px; margin-top:22px; }
+    .step { display:flex; gap:12px; align-items:center; font:700 13px ui-sans-serif,system-ui,sans-serif; }
+    .step b { display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#d9ecdd; color:var(--green); font-size:11px; }
+    .architecture { display:grid; gap:10px; font:700 13px ui-sans-serif,system-ui,sans-serif; }
+    .architecture div { padding:14px 16px; border-radius:12px; background:var(--mint); border:1px solid var(--line); }
+    .architecture div:nth-child(2) { margin-left:10%; background:#fff7e5; border-color:#eedaa2; }
+    .architecture div:nth-child(3) { margin-left:20%; }
+    .note { margin-top:24px; padding:13px 15px; border-left:3px solid #e0a831; background:#fff8e8; color:#6c5b2d; font:12px/1.5 ui-sans-serif,system-ui,sans-serif; }
+    footer { display:flex; justify-content:space-between; align-items:center; gap:18px; font:12px ui-sans-serif,system-ui,sans-serif; color:var(--muted); }
+    .controls { display:flex; align-items:center; gap:8px; }
+    .progress { position:fixed; left:0; right:0; bottom:0; height:4px; background:#dce8df; }
+    .progress span { display:block; height:100%; width:20%; background:var(--green); transition:width .45s ease; }
+    button { border:1px solid var(--line); border-radius:10px; padding:10px 14px; background:var(--paper); color:var(--green); font-weight:800; cursor:pointer; }
+    button.primary { background:var(--green); color:#fff; border-color:var(--green); }
+    @media (max-width:760px) { .shell { padding:22px 20px; } .slide.active { grid-template-columns:1fr; gap:24px; } h1 { font-size:48px; } footer { align-items:flex-start; flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <div class="topbar"></div>
+  <div class="shell">
+    <header><div class="brand"><span class="mark">♥</span><span>PersonalDoc</span></div><div><span class="eyebrow">Hackathon demo</span> <span class="counter" id="counter">01 / 05</span><span class="mode" id="mode"><i></i> Ready</span></div></header>
+    <main>
+      <section class="slide active">
+        <div><span class="tag">The problem</span><h1>Health decisions feel harder when the story is scattered.</h1><p>Families search symptoms in panic, lose medicine details, and enter short doctor visits without the timeline that matters.</p><div class="steps"><div class="step"><b>01</b> One profile for each family member</div><div class="step"><b>02</b> A calmer way to describe symptoms</div><div class="step"><b>03</b> A doctor-ready handoff at the end</div></div></div>
+        <div class="panel"><h3>What PersonalDoc changes</h3><div class="metric"><span>Before</span><span>Notes across chats and paper</span></div><div class="metric"><span>During</span><span>Guided AI conversation</span></div><div class="metric"><span>After</span><span>Clear next steps + visit prep</span></div><div class="note">AI assists with organization and triage prompts. It does not replace a licensed clinician or emergency services.</div></div>
+      </section>
+      <section class="slide">
+        <div><span class="tag">The experience</span><h2>From a worried moment to a clearer conversation.</h2><p>The workflow is designed around the way families actually care for one another: choose a person, share context, track what changes, and prepare to speak with a physical doctor.</p></div>
+        <div class="panel"><h3>Five simple steps</h3><div class="steps"><div class="step"><b>01</b> Choose a family member</div><div class="step"><b>02</b> Describe symptoms in English, Hindi, or Hinglish</div><div class="step"><b>03</b> Receive an AI-assisted next step</div><div class="step"><b>04</b> Track vitals and medicines</div><div class="step"><b>05</b> Generate a doctor visit prep sheet</div></div></div>
+      </section>
+      <section class="slide">
+        <div><span class="tag">The product</span><h2>One calm workspace for the whole family.</h2><p>PersonalDoc combines consultation, blood pressure, blood sugar, child milestones, elderly care, lab explanation, medication adherence, emergency guidance, and doctor handoff preparation.</p></div>
+        <div class="panel"><h3>Built for</h3><div class="metric"><span>Households</span><span>Managing family care</span></div><div class="metric"><span>Caregivers</span><span>Supporting parents</span></div><div class="metric"><span>Patients</span><span>Preparing for visits</span></div><div class="metric"><span>Doctors</span><span>Receiving a faster handoff</span></div></div>
+      </section>
+      <section class="slide">
+        <div><span class="tag">The stack</span><h2>Small, practical architecture. Ready to grow.</h2><p>The prototype keeps data local for privacy and uses Gemini only where AI reasoning adds value. The server boundary keeps the API key away from the browser.</p></div>
+        <div class="panel"><h3>Architecture</h3><div class="architecture"><div>React + TypeScript + Tailwind<br><small>Responsive family health workspace</small></div><div>Node.js + Express<br><small>API routes and Gemini gateway</small></div><div>Google Gemini<br><small>Consultation, summaries, lab explanations</small></div><div>Browser localStorage<br><small>Profiles, vitals, medication state</small></div></div></div>
+      </section>
+      <section class="slide">
+        <div><span class="tag">AWS path</span><h2>How AWS can take this prototype to the next stage.</h2><p>The current build is honest about what is implemented today. AWS can host the existing Node/Express server without pretending that future services are already in production.</p><div class="note">Recommended deployment: AWS App Runner for the containerized Node/Express app, AWS Secrets Manager or App Runner secrets for GEMINI_API_KEY, and CloudWatch for logs and health monitoring.</div></div>
+        <div class="panel"><h3>Next architecture</h3><div class="architecture"><div>Amazon CloudFront + S3<br><small>Static frontend delivery</small></div><div>AWS App Runner<br><small>Managed Node/Express service</small></div><div>AWS Secrets Manager<br><small>Protected Gemini credential</small></div><div>Amazon CloudWatch<br><small>Logs, metrics, alerts</small></div></div></div>
+      </section>
+    </main>
+    <footer><span>PersonalDoc · AI-assisted family health preparation</span><div class="controls"><button class="primary" id="speak">Start narrated demo</button><button id="prev">Previous</button><button id="next">Next</button></div></footer>
+  </div>
+  <div class="progress"><span id="progress"></span></div>
+  <script>
+    const slides=[...document.querySelectorAll('.slide')]; let current=0; let timer; let isPlaying=false;
+    const narrations=[
+      'PersonalDoc solves a common family health problem. Symptoms, medicines, and doctor notes are often scattered. PersonalDoc brings them together in one calm and organized workspace.',
+      'The experience is simple. First, choose a family member. Next, describe what is happening. PersonalDoc gives an AI-assisted next step, keeps important records current, and prepares a clear doctor visit sheet.',
+      'PersonalDoc is made for households, caregivers, patients, and doctors. It combines consultation, vital tracking, medicine reminders, emergency guidance, and visit preparation in one place.',
+      'The technology is practical and privacy-aware. The app uses React and TypeScript in the browser, Node and Express on the server, Google Gemini for AI reasoning, and local storage for family records.',
+      'AWS is ready for the next stage. App Runner can host the Node service. Secrets Manager can protect the Gemini key. CloudFront and S three can deliver the frontend. CloudWatch can monitor the service.'
+    ];
+    const counter=document.getElementById('counter');
+    const progress=document.getElementById('progress'); const mode=document.getElementById('mode'); const speakButton=document.getElementById('speak');
+    const femaleVoiceNames=['Samantha','Ava','Karen','Zira','Google UK English Female','Google US English Female','Microsoft Jenny','Microsoft Aria'];
+    function getFemaleVoice(){
+      const voices=speechSynthesis.getVoices();
+      return voices.find((voice)=>femaleVoiceNames.some((name)=>voice.name.toLowerCase().includes(name.toLowerCase()))) || voices.find((voice)=>voice.lang.toLowerCase().startsWith('en-in')) || voices.find((voice)=>voice.lang.toLowerCase().startsWith('en'));
+    }
+    function show(index){current=(index+slides.length)%slides.length; slides.forEach((s,i)=>s.classList.toggle('active',i===current)); counter.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0'); progress.style.width=((current+1)/slides.length*100)+'%';}
+    function narrate(){ if (!('speechSynthesis' in window)) { mode.innerHTML='<i></i> Voice unavailable'; return; } speechSynthesis.cancel(); const voice=new SpeechSynthesisUtterance(narrations[current]); voice.voice=getFemaleVoice(); voice.lang=voice.voice?.lang || 'en-IN'; voice.rate=.86; voice.pitch=1.08; voice.onend=()=>{ if(isPlaying) { if(current===slides.length-1) { isPlaying=false; mode.classList.remove('live'); mode.innerHTML='<i></i> Complete'; speakButton.textContent='Replay narrated demo'; } else { show(current+1); narrate(); } } }; speechSynthesis.speak(voice); }
+    function startNarration(){isPlaying=!isPlaying; if(isPlaying){mode.classList.add('live'); mode.innerHTML='<i></i> Narrating'; speakButton.textContent='Pause narration'; narrate();} else {speechSynthesis.cancel(); mode.classList.remove('live'); mode.innerHTML='<i></i> Paused'; speakButton.textContent='Resume narration';}}
+    document.getElementById('next').onclick=()=>{isPlaying=false; speechSynthesis.cancel(); show(current+1);}; document.getElementById('prev').onclick=()=>{isPlaying=false; speechSynthesis.cancel(); show(current-1);};
+    speakButton.onclick=startNarration;
+    document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(current+1); if(e.key==='ArrowLeft')show(current-1);});
+    show(0);
+  </script>
+</body>
+</html>

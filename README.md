@@ -40,6 +40,12 @@ This version does not claim to use Amazon Bedrock, DynamoDB, Lambda, Transcribe,
 
 Open `http://localhost:3001/`.
 
+## Demo Presentation
+
+Open `http://localhost:3001/demo.html` for the self-running project presentation. It covers the problem, product flow, technology stack, architecture, and the honest AWS deployment path. Use **Play narration**, the arrow keys, or the Previous/Next controls to present it.
+
+The current prototype uses Google Gemini, Node/Express, browser localStorage, and optional AWS App Runner hosting. AWS services such as Bedrock, DynamoDB, Lambda, Transcribe, and Polly are future integration options, not current dependencies.
+
 ## Validation
 
 ```bash
@@ -50,23 +56,3 @@ npm run build
 ## Safety
 
 PersonalDoc is an AI-assisted preparation and organization tool. It is not a doctor, does not replace professional medical care, and should not be used for emergencies. Call local emergency services immediately for urgent symptoms.
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/bd5476f2-9b4f-49d6-922a-56084d8e61d6
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
