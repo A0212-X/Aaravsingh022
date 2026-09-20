@@ -48,7 +48,7 @@ async function startServer() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PersonalDoc — AWS Hackathon Pitch Deck & Presentation</title>
+  <title>PersonalDoc — Project Architecture & Presentation</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -273,32 +273,32 @@ async function startServer() {
     <!-- SLIDE 4 -->
     <div class="slide-card">
       <div>
-        <span class="slide-tag">Slide 4 • AWS Cloud Architecture</span>
-        <h2 class="slide-title">Enterprise Cloud Architecture on AWS</h2>
-        <div class="slide-subtitle">Scalable, Serverless, and HIPAA-Compliant Engineering</div>
+        <span class="slide-tag">Slide 4 • Current Architecture</span>
+        <h2 class="slide-title">A focused, privacy-aware application architecture</h2>
+        <div class="slide-subtitle">React, Node.js, Express, Gemini, and browser-first data storage</div>
       </div>
 
       <div class="grid-2">
         <div class="feature-box">
-          <h4 style="color: #f59e0b;">Amazon Bedrock (GenAI Engine)</h4>
-          <p>Orchestrates foundational models (Claude 3.5 Sonnet / Llama 3) with deterministic clinical prompt guardrails and zero-data-retention compliance.</p>
+          <h4 style="color: #f59e0b;">Google Gemini</h4>
+          <p>Provides the AI consultation, lab explanation, and visit-summary generation through the server-side Gemini client.</p>
         </div>
         <div class="feature-box">
-          <h4 style="color: #f59e0b;">Amazon Comprehend Medical</h4>
-          <p>Automated clinical entity recognition: parses dosages, frequencies, and redacts Protected Health Information (PHI).</p>
+          <h4 style="color: #f59e0b;">React + TypeScript</h4>
+          <p>Provides the responsive family dashboard, health tools, modals, and guided user workflows.</p>
         </div>
         <div class="feature-box">
-          <h4 style="color: #f59e0b;">Amazon Transcribe & Polly</h4>
-          <p>High-fidelity Indian-accented English and Hindi speech recognition, paired with calming voice guidance.</p>
+          <h4 style="color: #f59e0b;">Node.js + Express</h4>
+          <p>Serves the application, exposes the AI routes, loads environment secrets, and supports local or hosted deployment.</p>
         </div>
         <div class="feature-box">
-          <h4 style="color: #f59e0b;">AWS Lambda & Amazon DynamoDB</h4>
-          <p>Serverless microservices with single-digit millisecond latency for family records and vital telemetry.</p>
+          <h4 style="color: #f59e0b;">Browser-first privacy</h4>
+          <p>Family profiles and vitals persist in localStorage, with JSON export and restore so users retain control of their records.</p>
         </div>
       </div>
 
       <div class="speaker-note">
-        <strong>🎙️ Speaker Note:</strong> "We engineered this for production. AWS Bedrock ensures enterprise security, Comprehend Medical guarantees clinical accuracy, and Lambda keeps infrastructure costs near zero when idle."
+        <strong>🎙️ Speaker Note:</strong> "The current prototype keeps its architecture focused: Gemini handles AI generation on the server, while family records stay in the user's browser. For deployment, the existing Node server can run on AWS App Runner with the Gemini key stored as a managed secret."
       </div>
     </div>
 
@@ -348,8 +348,8 @@ async function startServer() {
       </div>
 
       <div style="margin-top: 18px; padding: 16px; background: #0f172a; border-radius: 12px; border: 1px solid #334155;">
-        <h4 style="font-size: 13px; color: #f8fafc; margin-bottom: 8px;">Upcoming AWS Roadmap:</h4>
-        <p style="font-size: 12px; color: #94a3b8;">• <strong>Month 1:</strong> Amazon Textract for handwritten Indian doctor prescription scanning.<br>• <strong>Month 2:</strong> Ayushman Bharat Digital Mission (ABHA) National Health ID integration.<br>• <strong>Month 3:</strong> AWS IoT Core for Bluetooth Blood Pressure & Glucometer syncing.</p>
+        <h4 style="font-size: 13px; color: #f8fafc; margin-bottom: 8px;">Honest AWS deployment path:</h4>
+        <p style="font-size: 12px; color: #94a3b8;">Deploy the existing Node/Express server to Amazon App Runner, store GEMINI_API_KEY in App Runner secrets, and add CloudWatch monitoring. Future AWS services can be introduced only when the corresponding product requirements are implemented.</p>
       </div>
     </div>
 
@@ -360,7 +360,7 @@ async function startServer() {
         <h2 class="slide-title">PersonalDoc: Healthcare from the Home to the Hospital</h2>
         <div class="slide-subtitle">Empowering Families, Accelerating Clinical Decisions</div>
         <p style="color: #cbd5e1; font-size: 14px; margin-top: 16px; line-height: 1.6;">
-          PersonalDoc transforms home health anxiety into structured medical intelligence. It respects doctor time, protects patient safety, and harnesses AWS AI to elevate family wellness across India.
+          PersonalDoc transforms home health anxiety into structured medical intelligence. It respects doctor time, protects patient safety, and is ready for honest deployment on AWS without overstating the services currently in use.
         </p>
       </div>
 
@@ -388,8 +388,8 @@ async function startServer() {
       </div>
 
       <div class="qa-box">
-        <h4>Q2: Why choose Amazon Bedrock over external API providers?</h4>
-        <p><strong>Answer:</strong> Bedrock offers enterprise data privacy with HIPAA eligibility and strict zero-data-retention guarantees. It allows us to benchmark and switch between top clinical foundation models (Claude 3.5, Llama 3) with unified AWS IAM security controls.</p>
+        <h4>Q2: How is the current AI architecture implemented?</h4>
+        <p><strong>Answer:</strong> The Node/Express server calls Google Gemini through the official SDK. The browser never receives the Gemini key. The app adds structured prompts, red-flag guidance, and clear medical disclaimers around the AI experience.</p>
       </div>
 
       <div class="qa-box">
