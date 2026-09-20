@@ -4,6 +4,9 @@
 
 PersonalDoc helps families keep member profiles, symptoms, medicines, allergies, vitals, lab explanations, emergency guidance, and doctor-ready visit notes together in one place.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/A0212-X/Aaravsingh022)
+
+
 ## Honest Architecture
 
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS
