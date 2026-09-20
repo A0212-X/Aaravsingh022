@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: personaldoc
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: node dist/server.cjs
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PORT
+        value: 3000
+    healthCheckPath: /
